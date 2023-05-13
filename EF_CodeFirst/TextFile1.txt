@@ -1,0 +1,29 @@
+﻿- Entity Sınıflarımızı oluşturuyoruz.
+
+- EntityFramework, Manage NuGet Packages'den yüklüyoruz.
+
+- Context sınıfımızı oluşturuyoruz.
+
+- ConnectionString için App.config dosyasını güncelliyoruz.
+
+- Yukarıdaki işlemler bittikten sonra migration işlemlerini yapabiliriz. Bu işlemleri Package Manager Console üzerinden yapmalıyız.
+
+	-- Öncelikle migration'ı aktif hale getirmek için:
+		- enable-migrations komutunu kullanıyoruz.
+		- add-migration [migration_ismi] komutunu çalıştırarak migrationımızı oluşturuyoruz.
+		- Oluşan dosya Entity modellerinde yapılan değişiklikleri veritabanına yansıtmak için SqlServer üzerinde çalıştırılmak üzere ilgili komutları oluşturuyor. Bu komutlar Up() fonksiyonu içindeki komutlardır.
+		- Oluşturulan migration dosyasını veritabanına yansıtmak için update-migration komutunu kullanıyoruz.
+
+- Daha sonra Entity Class'larımızda yaptığımız değişiklikleri tekrar veritabanına taşımak istediğimizde, öncelikle yeni bir migration ekliyoruz (add-migration [migration_ismi]) sonra da update-database komutunu kullanmamız gerekiyor.
+
+-Projemizde değişiklikleri yaptık, migration'ı oluşturduk ve veritabanına yansıttık. Yaptığımız bu değişiklik ya da değişiklikleri geri almak isteyebiliriz. Bu durumda ilgili (Target migration) migration'a dönmek için aşağıdaki kodu kullanmalıyız.
+	- update-database -TargetMigration:"DönülecekMigrationİsmi"
+
+	- update-database -TargetMigration:"mig2" gibi
+
+- Bütün değişiklikleri geriye almak istiyorsak:
+	- update-database -TargetMigration:0
+
+- Var olan migration'ı silmek için Delete edilebilir ya da:
+	- remove-migration "SilinecekMigrationİsmi"
+
